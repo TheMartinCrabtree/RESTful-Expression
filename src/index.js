@@ -1,8 +1,9 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const helmet = require('helmet');
-const morgan = require('morgan');
+import 'dotenv/config';
+import cors from 'cors';
+import express from 'express';
+import bodyParser from 'body-parser';
+import helmet from 'helmet';
+import morgan from 'morgan';
 
 const app = express();
 
@@ -23,12 +24,10 @@ app.use(cors());
 // adding morgan to log HTTP requests
 app.use(morgan('combined'));
 
-// defining an endpoint to return all ads
 app.get('/', (req, res) => {
-  res.send(ads);
+  res.send('Hello World!');
 });
 
-// starting the server
-app.listen(3001, () => {
-  console.log('listening on port 3001');
-});
+app.listen(3000, () =>
+  console.log(`Example app listening on port 3000!`),
+);
