@@ -24,10 +24,22 @@ app.use(cors());
 // adding morgan to log HTTP requests
 app.use(morgan('combined'));
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+app.get('/users', (req, res) => {
+  return res.send('Received a GET HTTP method');
 });
 
-app.listen(3000, () =>
-  console.log(`Example app listening on port 3000!`),
+app.post('/users', (req, res) => {
+  return res.send('Received a POST HTTP method');
+});
+
+app.put('/users', (req, res) => {
+  return res.send('Received a PUT HTTP method');
+});
+
+app.delete('/users', (req, res) => {
+  return res.send('Received a DELETE HTTP method');
+});
+
+app.listen(process.env.PORT, () =>
+  console.log(`Example app listening on port ${process.env.PORT}!`),
 );
