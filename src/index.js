@@ -1,11 +1,15 @@
 import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
+import { v4 as uuidv4 } from 'uuid'; 
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 
 // temp data arr users and messages
 let users = {
@@ -55,6 +59,14 @@ app.get('/users/:userId', (req, res) => {
   return res.send(users[req.params.userId]);
 });
 
+app.get('/messages', (req, res) => {
+  return res.send(Object.values(messages));
+});
+
+app.get('/messages/:messageId', (req, res) => {
+  return res.send(messages[req.params.messageId]);
+});
+
 app.post('/users', (req, res) => {
   return res.send('Received a POST HTTP method');
 });
@@ -74,3 +86,18 @@ app.delete('/users/:userId', (req, res) => {
 app.listen(process.env.PORT, () =>
   console.log(`Example app listening on port ${process.env.PORT}!`),
 );
+
+
+app.post('/messages', (req, res) => {
+  const id = uuidv4();
+  const message = {
+    id,
+  };
+  
+  const date = Date.parse(req.body.date);
+  const count = Number(req.body.count);
+
+  messages[id] = message;
+
+  return res.send(message);
+});
